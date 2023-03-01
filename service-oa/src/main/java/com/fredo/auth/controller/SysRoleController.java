@@ -1,6 +1,7 @@
 package com.fredo.auth.controller;
 
 import com.fredo.auth.service.SysRoleService;
+import com.fredo.common.result.Result;
 import com.fredo.model.system.SysRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,8 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
 
     @GetMapping("findAll")
-    public List<SysRole> findAll() {
+    public Result<List<SysRole>> findAll() {
         List<SysRole> roleList = sysRoleService.list();
-        return roleList;
+        return Result.ok(roleList);
     }
 }
