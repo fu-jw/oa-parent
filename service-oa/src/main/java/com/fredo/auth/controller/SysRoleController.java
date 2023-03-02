@@ -40,7 +40,7 @@ public class SysRoleController {
      * @param sysRoleQueryVo    条件对象
      * @return  条件分页查询结果
      */
-    @ApiOperation("条件分页查询")
+    @ApiOperation("角色条件分页查询")
     @GetMapping("{page}/{limit}")
     public Result pageQueryRole(@PathVariable Long page,
                                 @PathVariable Long limit,
