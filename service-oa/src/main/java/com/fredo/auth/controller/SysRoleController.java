@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fredo.auth.service.SysRoleService;
+import com.fredo.common.execption.CustomException;
 import com.fredo.common.result.Result;
+import com.fredo.common.result.ResultCodeEnum;
 import com.fredo.model.system.SysRole;
 import com.fredo.vo.system.SysRoleQueryVo;
 import io.swagger.annotations.Api;
@@ -28,6 +30,14 @@ public class SysRoleController {
     @GetMapping("findAll")
     public Result<List<SysRole>> findAll() {
         List<SysRole> roleList = sysRoleService.list();
+        // 测试异常处理
+//        try {
+//            int a=1/0;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            throw new CustomException(ResultCodeEnum.SERVICE_ERROR.getCode(),
+//                    ResultCodeEnum.SERVICE_ERROR.getMessage());
+//        }
         return Result.ok(roleList);
     }
 

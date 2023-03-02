@@ -37,8 +37,12 @@
 5. 修改角色:/admin/system/sysRole/update
 6. 删除角色:/admin/system/sysRole/remove/{id}
 7. 根据id列表删除角色:/admin/system/sysRole/batchRemove
+8. 
 
 ## 五、项目亮点
 1. 统一返回结果
 2. 整合knife4j，集成Swagger生成Api文档的增强解决方案
 3. 条件分页查询
+4. 统一异常处理
+
+
