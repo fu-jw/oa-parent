@@ -31,8 +31,12 @@
 
 ## 四、接口汇总
 1. 获取所有角色：/admin/system/sysRole/findAll
-2. 角色条件分页查询
-3. 
+2. 角色条件分页查询：/admin/system/sysRole/{page}/{limit}
+3. 根据id获取角色信息：/admin/system/sysRole/get/{id}
+4. 新增角色：/admin/system/sysRole/save
+5. 修改角色:/admin/system/sysRole/update
+6. 删除角色:/admin/system/sysRole/remove/{id}
+7. 根据id列表删除角色:/admin/system/sysRole/batchRemove
 
 ## 五、项目亮点
 1. 统一返回结果
