@@ -37,7 +37,9 @@
 5. 修改角色:/admin/system/sysRole/update
 6. 删除角色:/admin/system/sysRole/remove/{id}
 7. 根据id列表删除角色:/admin/system/sysRole/batchRemove
-8. 
+8. 登录：/admin/system/index/login
+9. 获取信息：/admin/system/index/info
+10. 登出：/admin/system/index/logout
 
 ## 五、项目亮点
 1. 统一返回结果
