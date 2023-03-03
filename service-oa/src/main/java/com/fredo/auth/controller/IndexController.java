@@ -2,10 +2,7 @@ package com.fredo.auth.controller;
 
 import com.fredo.common.result.Result;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,15 +18,15 @@ public class IndexController {
      * post
      */
     @PostMapping("login")
-    public Result login(){
-        Map<String, Object> map = new HashMap<>();
-        map.put("token","admin");
+    public Result login(@RequestBody HashMap map){
+        System.out.println(map);
+//        Map<String, Object> map = new HashMap<>();
+        map.put("token",map.get("username"));
         return Result.ok(map);
     }
 
     /**
      * 获取用户信息
-     * @return
      */
     @GetMapping("info")
     public Result info() {
@@ -42,7 +39,6 @@ public class IndexController {
 
     /**
      * 退出
-     * @return
      */
     @PostMapping("logout")
     public Result logout(){
