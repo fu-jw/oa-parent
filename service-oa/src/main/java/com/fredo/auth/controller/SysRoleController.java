@@ -1,12 +1,9 @@
 package com.fredo.auth.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fredo.auth.service.SysRoleService;
-import com.fredo.common.execption.CustomException;
 import com.fredo.common.result.Result;
-import com.fredo.common.result.ResultCodeEnum;
 import com.fredo.model.system.SysRole;
 import com.fredo.vo.system.SysRoleQueryVo;
 import io.swagger.annotations.Api;
@@ -24,12 +21,12 @@ import java.util.List;
 public class SysRoleController {
 
     @Autowired
-    private SysRoleService sysRoleService;
+    private SysRoleService roleService;
 
     @ApiOperation("获取全部角色列表")
     @GetMapping("findAll")
     public Result<List<SysRole>> findAll() {
-        List<SysRole> roleList = sysRoleService.list();
+        List<SysRole> roleList = roleService.list();
         // 测试异常处理
 //        try {
 //            int a=1/0;
@@ -74,7 +71,7 @@ public class SysRoleController {
 //        pageParam = sysRoleService.page(pageParam, wrapper);
 //        return Result.ok(pageParam);
 
-        sysRoleService.page(pageParam, wrapper);
+        roleService.page(pageParam, wrapper);
         return Result.ok(pageParam);
     }
 
@@ -87,7 +84,7 @@ public class SysRoleController {
     @ApiOperation(value = "根据id获取角色信息")
     @GetMapping("get/{id}")
     public Result<SysRole> get(@PathVariable Long id) {
-        SysRole role = sysRoleService.getById(id);
+        SysRole role = roleService.getById(id);
         return Result.ok(role);
     }
 
@@ -100,7 +97,7 @@ public class SysRoleController {
     @ApiOperation(value = "新增角色")
     @PostMapping("save")
     public Result save(@RequestBody @Validated SysRole role) {
-        sysRoleService.save(role);
+        roleService.save(role);
         return Result.ok();
     }
 
@@ -113,7 +110,7 @@ public class SysRoleController {
     @ApiOperation(value = "修改角色")
     @PutMapping("update")
     public Result update(@RequestBody SysRole role) {
-        sysRoleService.updateById(role);
+        roleService.updateById(role);
         return Result.ok();
     }
 
@@ -126,7 +123,7 @@ public class SysRoleController {
     @ApiOperation(value = "删除角色")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
-        sysRoleService.removeById(id);
+        roleService.removeById(id);
         return Result.ok();
     }
 
@@ -139,7 +136,7 @@ public class SysRoleController {
     @ApiOperation(value = "根据id列表删除")
     @DeleteMapping("batchRemove")
     public Result batchRemove(@RequestBody List<Long> idList) {
-        sysRoleService.removeByIds(idList);
+        roleService.removeByIds(idList);
         return Result.ok();
     }
 }
