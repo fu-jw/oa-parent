@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户表 前端控制器
@@ -47,13 +49,17 @@ public class SysUserController {
         //封装条件，判断条件值不为空
         LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
         //获取条件值
-        String username = sysUserQueryVo.getKeyword();
+        String keyword = sysUserQueryVo.getKeyword();
         String createTimeBegin = sysUserQueryVo.getCreateTimeBegin();
         String createTimeEnd = sysUserQueryVo.getCreateTimeEnd();
         //判断条件值不为空
         //like 模糊查询
-        if (!StringUtils.isEmpty(username)) {
-            wrapper.like(SysUser::getUsername, username);
+        if (!StringUtils.isEmpty(keyword)) {
+            wrapper.like(SysUser::getUsername, keyword)
+                    .or().
+                    like(SysUser::getName,keyword)
+                    .or()
+                    .like(SysUser::getPhone,keyword);
         }
         //ge 大于等于
         if (!StringUtils.isEmpty(createTimeBegin)) {
@@ -94,6 +100,18 @@ public class SysUserController {
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
         userService.removeById(id);
+        return Result.ok();
+    }
+    /**
+     * 根据id列表删除用户
+     *
+     * @param idList id列表
+     * @return 删除结果
+     */
+    @ApiOperation(value = "根据id列表删除")
+    @DeleteMapping("batchRemove")
+    public Result batchRemove(@RequestBody List<Long> idList) {
+        userService.removeByIds(idList);
         return Result.ok();
     }
 }
