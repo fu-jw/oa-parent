@@ -30,16 +30,22 @@
 	- service-oa：系统服务模块
 
 ## 四、接口汇总
-1. 获取所有角色：/admin/system/sysRole/findAll
-2. 角色条件分页查询：/admin/system/sysRole/{page}/{limit}
-3. 根据id获取角色信息：/admin/system/sysRole/get/{id}
-4. 新增角色：/admin/system/sysRole/save
-5. 修改角色:/admin/system/sysRole/update
-6. 删除角色:/admin/system/sysRole/remove/{id}
-7. 根据id列表删除角色:/admin/system/sysRole/batchRemove
-8. 登录：/admin/system/index/login
-9. 获取信息：/admin/system/index/info
-10. 登出：/admin/system/index/logout
+1. 角色管理--获取所有角色：/admin/system/sysRole/findAll
+2. 角色管理--分页查询：/admin/system/sysRole/{page}/{limit}
+3. 角色管理--根据id获取角色信息：/admin/system/sysRole/get/{id}
+4. 角色管理--新增角色：/admin/system/sysRole/save
+5. 角色管理--修改角色:/admin/system/sysRole/update
+6. 角色管理--删除角色:/admin/system/sysRole/remove/{id}
+7. 角色管理--根据id列表删除角色:/admin/system/sysRole/batchRemove
+8. 后台管理--登录：/admin/system/index/login
+9. 后台管理--获取信息：/admin/system/index/info
+10. 后台管理--登出：/admin/system/index/logout
+11. 用户管理--分页查询：/admin/system/sysUser/{page}/{limit}
+12. 用户管理--根据id获取用户信息：/admin/system/sysUser/get/{id}
+13. 用户管理--保存用户信息：/admin/system/sysUser/save
+14. 用户管理--更新用户信息：/admin/system/sysUser/update
+15. 用户管理--根据id删除用户信息：/admin/system/sysUser/remove/{id}
+16. 用户管理--批量删除用户信息：/admin/system/sysUser/batchRemove
 
 ## 五、项目亮点
 1. 统一返回结果

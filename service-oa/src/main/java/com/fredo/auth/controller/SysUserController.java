@@ -2,7 +2,6 @@ package com.fredo.auth.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fredo.auth.service.SysUserService;
 import com.fredo.common.result.Result;
@@ -39,9 +38,9 @@ public class SysUserController {
      */
     @ApiOperation("用户条件分页查询")
     @GetMapping("{page}/{limit}")
-    public Result index(@PathVariable Long page,
-                        @PathVariable Long limit,
-                        SysUserQueryVo sysUserQueryVo) {
+    public Result getPage(@PathVariable Long page,
+                          @PathVariable Long limit,
+                          SysUserQueryVo sysUserQueryVo) {
 
         //创建page对象
         Page<SysUser> pageParam = new Page<>(page, limit);
@@ -103,7 +102,7 @@ public class SysUserController {
         return Result.ok();
     }
     /**
-     * 根据id列表删除用户
+     * 批量删除用户
      *
      * @param idList id列表
      * @return 删除结果
