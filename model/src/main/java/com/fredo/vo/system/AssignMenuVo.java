@@ -9,7 +9,7 @@ import java.util.List;
 
 @ApiModel(description = "分配菜单")
 @Data
-public class AssginMenuVo {
+public class AssignMenuVo {
 
     @ApiModelProperty(value = "角色id")
     private Long roleId;

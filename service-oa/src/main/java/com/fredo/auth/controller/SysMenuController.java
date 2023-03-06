@@ -3,6 +3,7 @@ package com.fredo.auth.controller;
 import com.fredo.auth.service.SysMenuService;
 import com.fredo.common.result.Result;
 import com.fredo.model.system.SysMenu;
+import com.fredo.vo.system.AssignMenuVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,17 @@ public class SysMenuController {
         return Result.ok();
     }
 
+    @ApiOperation(value = "根据角色获取菜单")
+    @GetMapping("toAssign/{roleId}")
+    public Result toAssign(@PathVariable Long roleId) {
+        List<SysMenu> list = menuService.findSysMenuByRoleId(roleId);
+        return Result.ok(list);
+    }
+
+    @ApiOperation(value = "给角色分配权限")
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssignMenuVo assignMenuVo) {
+        menuService.doAssign(assignMenuVo);
+        return Result.ok();
+    }
 }
