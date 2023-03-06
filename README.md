@@ -46,6 +46,9 @@
 14. 用户管理--更新用户信息：/admin/system/sysUser/update
 15. 用户管理--根据id删除用户信息：/admin/system/sysUser/remove/{id}
 16. 用户管理--批量删除用户信息：/admin/system/sysUser/batchRemove
+17. 用户管理--获取用户的角色信息：/admin/system/sysUser/toAssign/{userId}
+18. 用户管理--给用户分配角色：/admin/system/sysUser/doAssign
+19. 用户管理--更新用户状态：/admin/system/sysUser/updateStatus/{id}/{status}
 
 ## 五、项目亮点
 1. 统一返回结果
