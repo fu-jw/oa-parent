@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fredo.auth.service.SysRoleService;
 import com.fredo.common.result.Result;
 import com.fredo.model.system.SysRole;
+import com.fredo.vo.system.AssignRoleVo;
 import com.fredo.vo.system.SysRoleQueryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Api(tags = "角色管理")
 @RestController
@@ -137,6 +139,33 @@ public class SysRoleController {
     @DeleteMapping("batchRemove")
     public Result batchRemove(@RequestBody List<Long> idList) {
         roleService.removeByIds(idList);
+        return Result.ok();
+    }
+
+    /**
+     * 给用户分配角色
+     * 1、进入分配页面：获取已分配角色与全部角色，进行页面展示
+     * 2、保存分配角色：删除之前分配的角色和保存现在分配的角色
+     *
+     * @param userId 用户id
+     * @return 已分配角色与全部角色
+     */
+    @ApiOperation(value = "根据用户获取角色数据")
+    @GetMapping("/toAssign/{userId}")
+    public Result toAssign(@PathVariable Long userId) {
+        Map<String, Object> roleMap = roleService.findRoleByAdminId(userId);
+        return Result.ok(roleMap);
+    }
+
+    /**
+     *  分配角色
+     * @param assignRoleVo  角色信息
+     * @return  结果
+     */
+    @ApiOperation(value = "根据用户分配角色")
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssignRoleVo assignRoleVo) {
+        roleService.doAssign(assignRoleVo);
         return Result.ok();
     }
 }
