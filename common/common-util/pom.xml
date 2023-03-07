@@ -18,6 +18,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided </scope>
         </dependency>
+        <!--JWT依赖-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>

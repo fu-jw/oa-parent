@@ -49,6 +49,14 @@
 17. 用户管理--获取用户的角色信息：/admin/system/sysUser/toAssign/{userId}
 18. 用户管理--给用户分配角色：/admin/system/sysUser/doAssign
 19. 用户管理--更新用户状态：/admin/system/sysUser/updateStatus/{id}/{status}
+20. 角色管理--根据用户获取角色数据：/admin/system/sysRole/toAssign/{userId}
+21. 角色管理--分配角色：/admin/system/sysRole/doAssign
+22. 菜单管理--获取所有菜单：/admin/system/sysMenu/findNodes
+23. 菜单管理--新增菜单：/admin/system/sysMenu/save
+24. 菜单管理--修改菜单：/admin/system/sysMenu/update
+25. 菜单管理--删除菜单：/admin/system/sysMenu/remove/{id}
+26. 菜单管理--根据角色获取菜单：/admin/system/sysMenu/toAssign/{roleId}
+27. 菜单管理--给角色分配权限：/admin/system/sysMenu/doAssign
 
 ## 五、项目亮点
 1. 统一返回结果

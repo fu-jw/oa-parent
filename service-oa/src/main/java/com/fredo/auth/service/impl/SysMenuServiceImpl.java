@@ -56,12 +56,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> findSysMenuByRoleId(Long roleId) {
         //全部权限列表
-        List<SysMenu> allSysMenuList = this.list(new LambdaQueryWrapper<SysMenu>().eq(SysMenu::getStatus, 1));
+        List<SysMenu> allSysMenuList = this.list(
+                new LambdaQueryWrapper<SysMenu>().eq(SysMenu::getStatus, 1));
 
         //根据角色id获取角色权限
-        List<SysRoleMenu> sysRoleMenuList = sysRoleMenuMapper.selectList(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, roleId));
+        List<SysRoleMenu> sysRoleMenuList = sysRoleMenuMapper.selectList(
+                new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, roleId));
         //转换给角色id与角色权限对应Map对象
-        List<Long> menuIdList = sysRoleMenuList.stream().map(e -> e.getMenuId()).collect(Collectors.toList());
+        List<Long> menuIdList = sysRoleMenuList
+                .stream().map(e -> e.getMenuId()).collect(Collectors.toList());
 
         allSysMenuList.forEach(permission -> {
             if (menuIdList.contains(permission.getId())) {
@@ -78,6 +81,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Transactional
     @Override
     public void doAssign(AssignMenuVo assignMenuVo) {
+
         sysRoleMenuMapper.delete(
                 new LambdaQueryWrapper<SysRoleMenu>()
                         .eq(SysRoleMenu::getRoleId, assignMenuVo.getRoleId()));
