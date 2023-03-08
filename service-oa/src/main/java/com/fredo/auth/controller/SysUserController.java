@@ -4,6 +4,7 @@ package com.fredo.auth.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fredo.auth.service.SysUserService;
+import com.fredo.common.MD5;
 import com.fredo.common.result.Result;
 import com.fredo.model.system.SysUser;
 import com.fredo.vo.system.SysUserQueryVo;
@@ -84,6 +85,9 @@ public class SysUserController {
     @ApiOperation(value = "保存用户")
     @PostMapping("save")
     public Result save(@RequestBody SysUser user) {
+        // 设置用户密码加密
+        user.setPassword(MD5.encrypt(user.getPassword()));
+
         userService.save(user);
         return Result.ok();
     }

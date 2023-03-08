@@ -4,6 +4,7 @@ package com.fredo.auth.service;
 import com.fredo.model.system.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.fredo.vo.system.AssignMenuVo;
+import com.fredo.vo.system.RouterVo;
 
 import java.util.List;
 
@@ -25,4 +26,12 @@ public interface SysMenuService extends IService<SysMenu> {
      * @param  assignMenuVo
      */
     void doAssign(AssignMenuVo assignMenuVo);
+
+    /**
+     * 获取用户按钮权限
+     */
+    List<String> findUserPermsList(Long userId);
+
+    // 根据用户id获取可操作菜单列表
+    List<RouterVo> findUserMenuListByUserId(Long userId);
 }

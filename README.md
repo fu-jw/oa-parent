@@ -57,6 +57,7 @@
 25. 菜单管理--删除菜单：/admin/system/sysMenu/remove/{id}
 26. 菜单管理--根据角色获取菜单：/admin/system/sysMenu/toAssign/{roleId}
 27. 菜单管理--给角色分配权限：/admin/system/sysMenu/doAssign
+28. 
 
 ## 五、项目亮点
 1. 统一返回结果

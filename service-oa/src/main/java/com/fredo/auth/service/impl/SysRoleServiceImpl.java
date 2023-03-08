@@ -34,8 +34,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         List<SysRole> allRolesList = this.list();
 
         //拥有的角色id
-        List<SysUserRole> existUserRoleList = sysUserRoleMapper.selectList(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUserId, userId).select(SysUserRole::getRoleId));
-        List<Long> existRoleIdList = existUserRoleList.stream().map(c -> c.getRoleId()).collect(Collectors.toList());
+        List<SysUserRole> existUserRoleList = sysUserRoleMapper.selectList(
+                new LambdaQueryWrapper<SysUserRole>()
+                        .eq(SysUserRole::getUserId, userId)
+                        .select(SysUserRole::getRoleId));
+        List<Long> existRoleIdList = existUserRoleList
+                .stream()
+                .map(c -> c.getRoleId())
+                .collect(Collectors.toList());
 
         //对角色进行分类
         List<SysRole> assignRoleList = new ArrayList<>();

@@ -1,9 +1,9 @@
 package com.fredo.auth.service.impl;
 
-import com.fredo.model.system.SysUser;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fredo.auth.mapper.SysUserMapper;
 import com.fredo.auth.service.SysUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fredo.model.system.SysUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,4 +26,5 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         this.updateById(sysUser);
     }
+
 }

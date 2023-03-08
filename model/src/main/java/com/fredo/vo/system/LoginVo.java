@@ -7,7 +7,7 @@ package com.fredo.vo.system;
 public class LoginVo {
 
     /**
-     * 手机号
+     * 用户名
      */
     private String username;
 
