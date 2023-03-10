@@ -27,4 +27,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         this.updateById(sysUser);
     }
 
+    @Override
+    public SysUser getByUsername(String username) {
+        return null;
+    }
+
 }

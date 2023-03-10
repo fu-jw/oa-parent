@@ -7,5 +7,5 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity // 开启SpringSecurity的默认行为
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    
 }

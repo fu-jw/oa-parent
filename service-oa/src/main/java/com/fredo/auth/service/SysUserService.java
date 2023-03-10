@@ -18,7 +18,7 @@ public interface SysUserService extends IService<SysUser> {
     void updateStatus(Long id, Integer status);
 
     // 根据用户名获取用户信息
-    // SysUser getByUsername(String username);
+    SysUser getByUsername(String username);
 
     // 获取用户菜单
 //    List<RouterVo> findUserMenuList(Long userId);
