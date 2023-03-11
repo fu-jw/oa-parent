@@ -3,7 +3,7 @@ package com.fredo.auth.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fredo.auth.service.SysMenuService;
 import com.fredo.auth.service.SysUserService;
-import com.fredo.common.MD5;
+import com.fredo.common.util.MD5;
 import com.fredo.common.execption.CustomException;
 import com.fredo.common.jwt.JwtHelper;
 import com.fredo.common.result.Result;

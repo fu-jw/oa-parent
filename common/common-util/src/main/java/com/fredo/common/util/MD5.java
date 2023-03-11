@@ -1,4 +1,4 @@
-package com.fredo.common;
+package com.fredo.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,5 +1,6 @@
 package com.fredo.auth.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fredo.auth.mapper.SysUserMapper;
 import com.fredo.auth.service.SysUserService;
@@ -29,7 +30,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser getByUsername(String username) {
-        return null;
+        LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysUser::getUsername,username);
+        return baseMapper.selectOne(wrapper);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.fredo.custom;
 
-import com.fredo.common.MD5;
+import com.fredo.common.util.MD5;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
  * <p>
  * 密码处理
  * </p>
- *
  */
 @Component
 public class CustomMd5PasswordEncoder implements PasswordEncoder {
