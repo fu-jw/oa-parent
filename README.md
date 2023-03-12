@@ -64,5 +64,31 @@
 2. 整合knife4j，集成Swagger生成Api文档的增强解决方案
 3. 条件分页查询
 4. 统一异常处理
+5. SpringSecurity 用户认证授权
+
+## 六、SpringSecurity 
+Spring Security 基于 Spring 框架，提供了一套 Web 应用安全性的完整解决方案
+Web 应用的安全性包括 **用户认证（Authentication）和用户授权（Authorization）** 两个部分，
+这两点也是 SpringSecurity 重要核心功能
+
+- 用户认证：验证某个用户是否为系统中的合法主体，也就是说用户能否访问该系统。用户认证一般要求用户提供用户名和密码，系统通过校验用户名和密码来完成认证过程
+- 用户授权：验证某个用户是否有权限执行某个操作
+
+```txt
+要对 Web 资源进行保护，最好的办法莫过于 Filter
+要想对方法调用进行保护，最好的办法莫过于 AOP
+```
+Spring Security 进行认证和鉴权的时候，就是利用的一系列的 Filter 来进行拦截
+
+### 认证流程
+0. 在登录页输入用户名和密码，提交登录请求
+1. 将用户名和密码封装到Authentication(接口，实现类是UsernamePasswordAuthenticationToken)
+
+
+
+
+
+
+
 
 
