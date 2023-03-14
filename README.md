@@ -82,7 +82,96 @@ Spring Security 进行认证和鉴权的时候，就是利用的一系列的 Fil
 
 ### 认证流程
 0. 在登录页输入用户名和密码，提交登录请求
-1. 将用户名和密码封装到Authentication(接口，实现类是UsernamePasswordAuthenticationToken)
+1. 将用户名和密码封装到 Authentication(接口，实现类是UsernamePasswordAuthenticationToken)
+2. 由 AuthenticationManager 认证 authentication(),并将结果封装到 Authentication 中
+3. 认证结果放到上下文中
+
+```java
+// 生成一个包含账号密码的认证信息
+Authentication authenticationToken = new UsernamePasswordAuthenticationToken(username, passwrod);
+// AuthenticationManager校验这个认证信息，返回一个已认证的Authentication
+Authentication authentication = authenticationManager.authenticate(authenticationToken);
+// 将返回的Authentication存到上下文中
+SecurityContextHolder.getContext().setAuthentication(authentication);
+```
+AuthenticationManager 校验逻辑的大概源码:
+```java
+public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+...省略其他代码
+
+    // 传递过来的用户名
+    String username = authentication.getName();
+    // 调用UserDetailService的方法，通过用户名查询出用户对象UserDetail（查询不出来UserDetailService则会抛出异常）
+    UserDetails userDetails = this.getUserDetailsService().loadUserByUsername(username);
+    String presentedPassword = authentication.getCredentials().toString();
+
+    // 传递过来的密码
+    String password = authentication.getCredentials().toString();
+    // 使用密码解析器PasswordEncoder传递过来的密码是否和真实的用户密码匹配
+    if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+        // 密码错误则抛出异常
+        throw new BadCredentialsException("错误信息...");
+    }
+
+    // 注意哦，这里返回的已认证Authentication，是将整个UserDetails放进去充当Principal
+    UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(userDetails,
+            authentication.getCredentials(), userDetails.getAuthorities());
+    return result;
+
+...省略其他代码
+}
+```
+具体实现：
+1、自定义 UserDetails 
+接口，SpringSecurity 提供了实现类 User
+`public class User implements UserDetails, CredentialsContainer {}`
+需要自定义User类继承SpringSecurity 提供了实现类 User，并包含系统中使用的 SysUser：
+```java
+public class CustomUser extends User {
+    /**
+     * 我们自己的用户实体对象，要调取用户信息时直接获取这个实体对象。（这里我就不写get/set方法了）
+     */
+    private SysUser sysUser;
+    public CustomUser(SysUser sysUser, Collection<? extends GrantedAuthority> authorities) {
+        super(sysUser.getUsername(), sysUser.getPassword(), authorities);
+        this.sysUser = sysUser;
+    }
+    public SysUser getSysUser() {return sysUser;}
+    public void setSysUser(SysUser sysUser) {this.sysUser = sysUser;}
+}
+```
+2、实现业务对象 UserDetailsService
+接口，
+```java
+public interface UserDetailsService {
+    /**
+     * 根据用户名获取用户对象（获取不到直接抛异常）
+     */
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+}
+```
+添加UserDetailsServiceImpl类，实现UserDetailsService接口
+```java
+@Component
+public class UserDetailsServiceImpl implements UserDetailsService {
+    @Autowired
+    private SysUserService sysUserService;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SysUser sysUser = sysUserService.getByUsername(username);
+        if(null == sysUser) {
+            throw new UsernameNotFoundException("用户名不存在！");}
+        if(sysUser.getStatus().intValue() == 0) {
+            throw new RuntimeException("账号已停用");}
+        return new CustomUser(sysUser, Collections.emptyList());
+    }
+}
+```
+// TODO 还需要再整理
+
+
+
+
 
 
 
