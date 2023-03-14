@@ -10,6 +10,7 @@ import com.fredo.vo.system.SysRoleQueryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class SysRoleController {
     private SysRoleService roleService;
 
     @ApiOperation("获取全部角色列表")
+    @PreAuthorize("hasAuthority('bnt.sysRole.list')")
     @GetMapping("findAll")
     public Result<List<SysRole>> findAll() {
         List<SysRole> roleList = roleService.list();
@@ -49,6 +51,7 @@ public class SysRoleController {
      * @return 条件分页查询结果
      */
     @ApiOperation("角色条件分页查询")
+    @PreAuthorize("hasAuthority('bnt.sysRole.list')")
     @GetMapping("{page}/{limit}")
     public Result pageQueryRole(@PathVariable Long page,
                                 @PathVariable Long limit,
@@ -84,6 +87,7 @@ public class SysRoleController {
      * @return 角色信息
      */
     @ApiOperation(value = "根据id获取角色信息")
+    @PreAuthorize("hasAuthority('bnt.sysRole.list')")
     @GetMapping("get/{id}")
     public Result<SysRole> get(@PathVariable Long id) {
         SysRole role = roleService.getById(id);
@@ -97,6 +101,7 @@ public class SysRoleController {
      * @return 新增结果
      */
     @ApiOperation(value = "新增角色")
+    @PreAuthorize("hasAuthority('bnt.sysRole.add')")
     @PostMapping("save")
     public Result save(@RequestBody @Validated SysRole role) {
         roleService.save(role);
@@ -110,6 +115,7 @@ public class SysRoleController {
      * @return 修改结果
      */
     @ApiOperation(value = "修改角色")
+    @PreAuthorize("hasAuthority('bnt.sysRole.update')")
     @PutMapping("update")
     public Result update(@RequestBody SysRole role) {
         roleService.updateById(role);
@@ -123,6 +129,7 @@ public class SysRoleController {
      * @return 删除结果
      */
     @ApiOperation(value = "删除角色")
+    @PreAuthorize("hasAuthority('bnt.sysRole.remove')")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
         roleService.removeById(id);
@@ -136,6 +143,7 @@ public class SysRoleController {
      * @return 删除结果
      */
     @ApiOperation(value = "根据id列表删除")
+    @PreAuthorize("hasAuthority('bnt.sysRole.remove')")
     @DeleteMapping("batchRemove")
     public Result batchRemove(@RequestBody List<Long> idList) {
         roleService.removeByIds(idList);
@@ -151,6 +159,7 @@ public class SysRoleController {
      * @return 已分配角色与全部角色
      */
     @ApiOperation(value = "根据用户获取角色数据")
+    @PreAuthorize("hasAuthority('bnt.sysRole.assignAuth')")
     @GetMapping("/toAssign/{userId}")
     public Result toAssign(@PathVariable Long userId) {
         Map<String, Object> roleMap = roleService.findRoleByAdminId(userId);
@@ -163,6 +172,7 @@ public class SysRoleController {
      * @return  结果
      */
     @ApiOperation(value = "根据用户分配角色")
+    @PreAuthorize("hasAuthority('bnt.sysRole.assignAuth')")
     @PostMapping("/doAssign")
     public Result doAssign(@RequestBody AssignRoleVo assignRoleVo) {
         roleService.doAssign(assignRoleVo);
