@@ -9,4 +9,5 @@ public interface ProcessTemplateService extends IService<ProcessTemplate> {
 
     IPage<ProcessTemplate> selectPage(Page<ProcessTemplate> pageParam);
 
+    void publish(Long id);
 }

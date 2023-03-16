@@ -20,6 +20,12 @@ public class ProcessTypeController {
     @Autowired
     private ProcessTypeService processTypeService;
 
+    @ApiOperation(value = "获取全部审批分类")
+    @GetMapping("findAll")
+    public Result findAll() {
+        return Result.ok(processTypeService.list());
+    }
+
     @PreAuthorize("hasAuthority('bnt.processType.list')")
     @ApiOperation(value = "获取分页列表")
     @GetMapping("{page}/{limit}")

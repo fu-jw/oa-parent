@@ -10,6 +10,7 @@ import com.fredo.process.mapper.ProcessTemplateMapper;
 import com.fredo.process.service.ProcessTemplateService;
 import com.fredo.process.service.ProcessTypeService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -58,5 +59,16 @@ public class ProcessTemplateServiceImpl extends ServiceImpl<ProcessTemplateMappe
             }
         }
         return page;
+    }
+
+    @Transactional
+    @Override
+    public void publish(Long id) {
+        ProcessTemplate processTemplate = this.getById(id);
+        processTemplate.setStatus(1);
+        processTemplateMapper.updateById(processTemplate);
+
+        //TODO 部署流程定义，后续完善
+
     }
 }
