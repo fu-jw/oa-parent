@@ -1,6 +1,6 @@
 package com.fredo.activiti;
 
-import com.fredo.auth.ServiceAuthApplication;
+import com.fredo.auth.ServiceOAApplication;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-@SpringBootTest(classes = ServiceAuthApplication.class)
+@SpringBootTest(classes = ServiceOAApplication.class)
 public class ProcessTest {
 
     @Autowired

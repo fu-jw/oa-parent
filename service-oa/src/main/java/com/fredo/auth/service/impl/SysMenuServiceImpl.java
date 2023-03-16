@@ -1,7 +1,6 @@
 package com.fredo.auth.service.impl;
 
 import com.fredo.auth.mapper.SysMenuMapper;
-import com.fredo.auth.mapper.SysRoleMapper;
 import com.fredo.auth.mapper.SysRoleMenuMapper;
 import com.fredo.auth.service.SysMenuService;
 import com.fredo.common.execption.CustomException;
