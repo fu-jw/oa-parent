@@ -9,6 +9,7 @@ import com.fredo.common.util.ResponseUtil;
 import com.fredo.custom.CustomUser;
 import com.fredo.vo.system.LoginVo;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -70,6 +71,9 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = JwtHelper.createToken(customUser.getSysUser().getId(), customUser.getSysUser().getUsername());
         // 获取当前用户权限数据，放到Redis中
         // K：username   V：权限数据
+        redisTemplate.setKeySerializer(new StringRedisSerializer());// 防止Redis中乱码
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
+//        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
         redisTemplate.opsForValue().set(
                 customUser.getUsername(), JSON.toJSONString(customUser.getAuthorities()));
 

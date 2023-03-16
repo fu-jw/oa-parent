@@ -21,29 +21,42 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ProcessTemplateServiceImpl extends ServiceImpl<ProcessTemplateMapper, ProcessTemplate> implements ProcessTemplateService {
 
-   @Resource
-   private ProcessTemplateMapper processTemplateMapper;
+    @Resource
+    private ProcessTemplateMapper processTemplateMapper;
 
-   @Resource
-   private ProcessTypeService processTypeService;
+    @Resource
+    private ProcessTypeService processTypeService;
 
-   @Override
-   public IPage<ProcessTemplate> selectPage(Page<ProcessTemplate> pageParam) {
-      LambdaQueryWrapper<ProcessTemplate> queryWrapper = new LambdaQueryWrapper<ProcessTemplate>();
-      queryWrapper.orderByDesc(ProcessTemplate::getId);
-      IPage<ProcessTemplate> page = processTemplateMapper.selectPage(pageParam, queryWrapper);
-      List<ProcessTemplate> processTemplateList = page.getRecords();
-       
-      List<Long> processTypeIdList = processTemplateList.stream().map(processTemplate -> processTemplate.getProcessTypeId()).collect(Collectors.toList());
-       
-      if(!CollectionUtils.isEmpty(processTypeIdList)) {
-         Map<Long, ProcessType> processTypeIdToProcessTypeMap = processTypeService.list(new LambdaQueryWrapper<ProcessType>().in(ProcessType::getId, processTypeIdList)).stream().collect(Collectors.toMap(ProcessType::getId, ProcessType -> ProcessType));
-         for(ProcessTemplate processTemplate : processTemplateList) {
-            ProcessType processType = processTypeIdToProcessTypeMap.get(processTemplate.getProcessTypeId());
-            if(null == processType) continue;
-            processTemplate.setProcessTypeName(processType.getName());
-         }
-      }
-      return page;
-   }
+    @Override
+    public IPage<ProcessTemplate> selectPage(Page<ProcessTemplate> pageParam) {
+        LambdaQueryWrapper<ProcessTemplate> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(ProcessTemplate::getId);
+
+        IPage<ProcessTemplate> page = processTemplateMapper.selectPage(pageParam, queryWrapper);
+        List<ProcessTemplate> processTemplateList = page.getRecords();
+
+        // 遍历列表，获取每个对象的审批类型id
+        List<Long> processTypeIdList = processTemplateList.stream()
+                .map(ProcessTemplate::getProcessTypeId)
+                .collect(Collectors.toList());
+
+        // 根据类型id，获取对应名称
+        if (!CollectionUtils.isEmpty(processTypeIdList)) {
+            Map<Long, ProcessType> processTypeIdToProcessTypeMap = processTypeService
+                    .list(new LambdaQueryWrapper<ProcessType>()
+                            .in(ProcessType::getId, processTypeIdList))
+                    .stream()
+                    .collect(Collectors.toMap(ProcessType::getId, ProcessType -> ProcessType));
+
+            for (ProcessTemplate processTemplate : processTemplateList) {
+                ProcessType processType = processTypeIdToProcessTypeMap
+                        .get(processTemplate.getProcessTypeId());
+
+                if (null == processType) continue;
+
+                processTemplate.setProcessTypeName(processType.getName());
+            }
+        }
+        return page;
+    }
 }
