@@ -1,8 +1,8 @@
-package com.fredo.auth.controller;
+package com.fredo.process.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fredo.auth.service.ProcessTypeService;
+import com.fredo.process.service.ProcessTypeService;
 import com.fredo.common.result.Result;
 import com.fredo.model.process.ProcessType;
 import io.swagger.annotations.Api;

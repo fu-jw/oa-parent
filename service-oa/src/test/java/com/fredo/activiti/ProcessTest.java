@@ -1,6 +1,6 @@
 package com.fredo.activiti;
 
-import com.fredo.auth.ServiceOAApplication;
+import com.fredo.ServiceOAApplication;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;

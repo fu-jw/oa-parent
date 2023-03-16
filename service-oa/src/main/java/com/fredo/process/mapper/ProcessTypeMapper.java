@@ -1,4 +1,4 @@
-package com.fredo.auth.mapper;
+package com.fredo.process.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.fredo.model.process.ProcessType;

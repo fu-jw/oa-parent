@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.fredo.auth.mapper")
+//@MapperScan(basePackages = {"com.fredo.auth.mapper","com.fredo.process.mapper"})
+@MapperScan("com.fredo.*.mapper") // 错误：com.fredo.*
 public class MybatisPlusConfig {
 
     /**

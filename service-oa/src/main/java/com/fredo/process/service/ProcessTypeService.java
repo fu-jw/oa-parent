@@ -1,4 +1,4 @@
-package com.fredo.auth.service;
+package com.fredo.process.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.fredo.model.process.ProcessType;
