@@ -9,5 +9,5 @@ import com.fredo.vo.process.ProcessVo;
 public interface ProcessService extends IService<Process> {
 
     IPage<ProcessVo> selectPage(Page<ProcessVo> pageParam, ProcessQueryVo processQueryVo);
-
+    void deployByZip(String deployPath);
 }

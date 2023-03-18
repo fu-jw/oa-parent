@@ -7,11 +7,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fredo.model.process.ProcessTemplate;
 import com.fredo.model.process.ProcessType;
 import com.fredo.process.mapper.ProcessTemplateMapper;
+import com.fredo.process.service.ProcessService;
 import com.fredo.process.service.ProcessTemplateService;
 import com.fredo.process.service.ProcessTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -27,6 +30,9 @@ public class ProcessTemplateServiceImpl extends ServiceImpl<ProcessTemplateMappe
 
     @Resource
     private ProcessTypeService processTypeService;
+
+    @Autowired
+    private ProcessService processService;
 
     @Override
     public IPage<ProcessTemplate> selectPage(Page<ProcessTemplate> pageParam) {
@@ -68,7 +74,9 @@ public class ProcessTemplateServiceImpl extends ServiceImpl<ProcessTemplateMappe
         processTemplate.setStatus(1);
         processTemplateMapper.updateById(processTemplate);
 
-        // TODO 部署流程定义，后续完善
-
+        // 部署流程定义,优先发布在线流程设计
+        if (!StringUtils.isEmpty(processTemplate.getProcessDefinitionPath())) {
+            processService.deployByZip(processTemplate.getProcessDefinitionPath());
+        }
     }
 }
