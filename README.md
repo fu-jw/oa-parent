@@ -171,11 +171,32 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
 
+## 其他
+### 关于跨域处理
+请求协议+IP+端口号，三者任一不同，就属于跨域
 
+解决方案如下：
+1、在前端处理：
+在 vue.config.js 文件中设置代理
+```js
+// 将 ‘/dev-api’ 开头的请求改到 http://localhost:8800/...
+proxy: {
+  '/dev-api': { // 匹配所有以 '/dev-api'开头的请求路径
+	target: 'http://localhost:8800',
+	changeOrigin: true, // 支持跨域
+	pathRewrite: { // 重写路径: 去掉路径中开头的'/dev-api'
+	  '^/dev-api': ''
+	}
+  }
+}
+```
+2、在后端处理
+```java
+// 直接在 Controller 层添加注解
+@CrossOrigin
 
-
-
-
+```
+### 
 
 
 
