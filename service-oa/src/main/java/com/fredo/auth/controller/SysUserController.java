@@ -57,9 +57,9 @@ public class SysUserController {
         if (!StringUtils.isEmpty(keyword)) {
             wrapper.like(SysUser::getUsername, keyword)
                     .or().
-                    like(SysUser::getName,keyword)
+                    like(SysUser::getName, keyword)
                     .or()
-                    .like(SysUser::getPhone,keyword);
+                    .like(SysUser::getPhone, keyword);
         }
         //ge 大于等于
         if (!StringUtils.isEmpty(createTimeBegin)) {
@@ -105,6 +105,7 @@ public class SysUserController {
         userService.removeById(id);
         return Result.ok();
     }
+
     /**
      * 批量删除用户
      *
@@ -123,6 +124,12 @@ public class SysUserController {
     public Result updateStatus(@PathVariable Long id, @PathVariable Integer status) {
         userService.updateStatus(id, status);
         return Result.ok();
+    }
+
+    @ApiOperation(value = "获取当前用户基本信息")
+    @GetMapping("getCurrentUser")
+    public Result getCurrentUser() {
+        return Result.ok(userService.getCurrentUser());
     }
 }
 
