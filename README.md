@@ -196,9 +196,56 @@ proxy: {
 @CrossOrigin
 
 ```
-### 
 
+### xml文件加载问题
 
+Maven默认情况下，在src - main -java目录下面，只会加载java类型文件，其他类型文件不会加载的
+
+- 第一种解决方式：把xml文件放到resources目录下 
+- 第二种解决方式：在pom.xml和项目配置文件进行配置
+```xml
+<build>
+	// ...
+	<resources>
+		<resource>
+			<directory>src/main/java</directory>
+			<includes>
+				<include>**/*.yml</include>
+				<include>**/*.properties</include>
+				<include>**/*.xml</include>
+			</includes>
+			<filtering>false</filtering>
+		</resource>
+		<resource>
+			<directory>src/main/resources</directory>
+			<includes> 
+				<include>**/*.yml</include>
+				<include>**/*.properties</include>
+				<include>**/*.xml</include>
+				<include>**/*.png</include>
+				<include>**/*.zip</include>
+			</includes>
+			<filtering>false</filtering>
+		</resource>
+	</resources>
+</build>
+```
+### mapper扫描问题
+
+```java
+//第一种方式 ：创建配置类，使用@MapperScan注解
+@Configuration
+@MapperScan(basePackages = {"com.fredo.*.mapper"})
+public class MybatisPlusConfig {
+
+}
+
+//第二种方式：在mapper的接口上面添加注解 @Mapper
+@Mapper
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
+    
+}
+```
 
 
 

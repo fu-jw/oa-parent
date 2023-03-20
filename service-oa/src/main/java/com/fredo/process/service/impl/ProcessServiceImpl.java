@@ -203,7 +203,8 @@ public class ProcessServiceImpl extends ServiceImpl<ProcessMapper, Process> impl
         map.put("processRecordList", processRecordList);
         map.put("processTemplate", processTemplate);
 
-        //计算当前用户是否可以审批，能够查看详情的用户不是都能审批，审批后也不能重复审批
+        // 判断当前用户是否可以审批，
+        // 能够查看详情的用户不是都能审批，审批后也不能重复审批
         boolean isApprove = false;
         List<Task> taskList = this.getCurrentTaskList(process.getProcessInstanceId());
         if (!CollectionUtils.isEmpty(taskList)) {
