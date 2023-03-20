@@ -6,6 +6,7 @@ import com.fredo.common.jwt.JwtHelper;
 import com.fredo.common.result.Result;
 import com.fredo.common.result.ResultCodeEnum;
 import com.fredo.common.util.ResponseUtil;
+import com.fredo.custom.LoginUserInfoHelper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -61,6 +62,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             String username = JwtHelper.getUsername(token);
             logger.info("username:" + username);
             if (!StringUtils.isEmpty(username)) {
+                //通过ThreadLocal记录当前登录人信息
+                LoginUserInfoHelper.setUserId(JwtHelper.getUserId(token));
+                LoginUserInfoHelper.setUsername(username);
+
                 // 从Redis中获取用户的权限数据
                 String authoritiesString = (String) redisTemplate.opsForValue().get(username);
                 // 转成java对象
